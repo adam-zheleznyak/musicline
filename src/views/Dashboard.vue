@@ -1,6 +1,9 @@
 <template>
     <div class="dashboard">
         <div><img src="../assets/logo.svg" class="logo"></div>
+        <div class="selector-wrapper">
+            <Selector v-for="num in [1,2,3,4,5]" :num="num" :key="`${num}`"/>
+        </div>
         <Timeline />
         <Track
           prevUrl="https://images.rapgenius.com/dc547861a593b54a64ea80a468661ade.1000x1000x1.png"
@@ -14,12 +17,14 @@
 <script>
 import Timeline from '@/components/Timeline.vue'
 import Track from '@/components/Track.vue'
+import Selector from '@/components/Selector.vue'
 
 export default {
     name: 'Dashboard',
     components: {
         Timeline,
-        Track
+        Track,
+        Selector
     }
 }
 </script>
@@ -35,4 +40,30 @@ export default {
 .dashboard > div {
     margin: 25px;
 }
+
+.selector {
+    margin-left: 15px !important;
+    margin-right: 15px !important;
+}
+
+.intense-1 {
+    background-color: #4F3FE4;
+}
+
+.intense-2 {
+    background-color: #1ab47b;
+}
+
+.intense-3 {
+    background-color: #c6ba31;
+}
+
+.intense-4 {
+    background-color: #D68325;
+}
+
+.intense-5 {
+    background-color: #F0403E;
+}
+
 </style>
