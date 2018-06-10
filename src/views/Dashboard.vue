@@ -1,11 +1,16 @@
 <template>
     <div class="dashboard">
-        Dashboard
+        <Timeline />
     </div>
 </template>
 
 <script>
+import Timeline from '@/components/Timeline.vue'
+
 export default {
-    name: 'Dashboard'
+    name: 'Dashboard',
+    components: {
+        Timeline
+    }
 }
 </script>
