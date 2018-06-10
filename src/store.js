@@ -9,7 +9,8 @@ export default new Vuex.Store({
             [1, 15],
             [5, 15],
             [3, 30]
-        ]
+        ],
+        user: null
     },
     mutations: {
         inc_time (state, index) {
@@ -28,6 +29,9 @@ export default new Vuex.Store({
             } else if (state.schedule.length < 5) {
                 state.schedule.push(payload)
             }
+        },
+        set_user (state, user) {
+            state.user = user
         }
     },
     actions: {

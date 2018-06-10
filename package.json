@@ -7,11 +7,14 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "axios": "^0.18.0",
+    "spotify-web-api-node": "^3.1.1",
     "vue": "^2.5.16",
     "vue-feather-icons": "^4.7.1",
     "vue-js-popover": "^1.1.7",
     "vue-material": "^1.0.0-beta-10.2",
     "vue-router": "^3.0.1",
+    "vue-spotify": "^1.0.2",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

@@ -27,6 +27,11 @@ export default {
         Timeline,
         Track,
         Selector
+    },
+    async mounted () {
+        const me = await this.spotify.getMe()
+        console.log(me)
+        this.$store.commit('set_user', me.body)
     }
 }
 </script>

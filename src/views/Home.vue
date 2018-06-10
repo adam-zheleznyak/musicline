@@ -1,14 +1,29 @@
 <template>
     <div class="home">
         <transition name="fade" appear>
-            <img src="../assets/logo.svg" class="logo">
+            <div>
+                <img src="../assets/logo.svg" class="logo">
+                <md-button @click="auth()">Get Started</md-button>
+            </div>
         </transition>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'Home'
+    name: 'Home',
+    methods: {
+        auth () {
+            const scopes = [
+                "playlist-read-private",
+                "user-modify-playback-state",
+                "user-library-read",
+                "user-read-private",
+                "streaming"
+            ]
+            window.location.href = this.spotify.createAuthorizeURL(scopes)
+        }
+    }
 }
 </script>
 
@@ -20,11 +35,14 @@ export default {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    text-align: center;
 }
 
 .logo {
     width: 400px;
     filter: invert(100%);
+    display: block;
+    margin-bottom: 20px;
 }
 
 .fade-enter-active, .fade-leave-active {
