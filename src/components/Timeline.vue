@@ -1,15 +1,13 @@
 <template>
-<div class="timeline">
-    <div v-for="(elem, index) in schedule" :class="[ 'timeline-child', `intense-${elem[0]}` ]" :style="{ 'flex-grow': elem[1] }" v-popover="{ name: `popover-${index}`}">
-
-        <popover :name="`popover-${index}`" class="time-changer">
-            <button class="minus" @click="dec_time(index)"><minus-icon></minus-icon></button>
-            <div class='time'>{{ elem[1] }} mins</div>
-            <button class="plus" @click="inc_time(index)"><plus-icon></plus-icon></button>
-        </popover>
-
+    <div class="timeline-wrapper">
+        <div class="timeline">
+            <div v-for="(elem, index) in schedule" :class="[ 'timeline-child', `intense-${elem[0]}` ]" :style="{ 'flex-grow': elem[1] }">
+                <md-button class="md-icon-button md-dense minus" @click="dec_time(index)"><md-icon>remove</md-icon></md-button>
+                <div class='time'>{{ elem[1] }} mins</div>
+                <md-button class="md-icon-button md-dense plus" @click="inc_time(index)"><md-icon>add</md-icon></md-button>
+            </div>
+        </div>
     </div>
-</div>
 </template>
 
 <script>
@@ -31,34 +29,28 @@ export default {
 </script>
 
 <style scoped>
+.timeline-wrapper {
+    display: inline-block;
+}
+
 .timeline {
     display: flex;
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
+    width: 800px;
 }
 
 .timeline-child {
-    height: 50px;
     flex-grow: 1;
-    margin-left: -20px;
-    margin-right: -20px;
-}
-
-.timeline-child:first-child {
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    margin-left: 0;
+    padding: 5px;
+    border-radius: 21px;
+    margin-right: -42px;
+    padding-right: 42px;
+    transition: flex-grow .2s;
+    display: flex;
 }
 
 .timeline-child:last-child {
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
     margin-right: 0;
-}
-
-.fffff {
-    flex-grow: 2;
+    padding-right: 0;
 }
 
 .intense-1 {
@@ -81,19 +73,14 @@ export default {
     background-color: #F0403E;
 }
 
-.time-changer {
-    display: flex;
-}
-
-.minus,
 .plus {
     flex-grow: 0;
+    color: black;
 }
 
 .time {
     flex-grow: 1;
     text-align: center;
     line-height: 30px;
-    font-family: Arial;
 }
 </style>

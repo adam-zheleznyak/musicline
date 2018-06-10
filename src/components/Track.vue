@@ -1,23 +1,42 @@
 <template>
-    <div class="wrapper">
-        <div class="leftp">
-            <div class="prevTrack">
-                <img :src="this.prevUrl" class="prev">
-                <skip-forward-icon class="prevIcon" />
-            </div>
-        </div>
-        <div class="track">
-            <img :src="this.coverUrl" class="cover" onclick="pause()">
-            <pause-circle-icon id="pause" class="pause" />
-            <h2 class="title">{{this.coverTitle}}</h2>
-            <p2 class="artist">{{this.coverArt}}</p2>
-        </div>
-        <div class="rightp">
-            <div class="nextTrack">
-                <img :src="this.nextUrl" class="next">
-                <skip-forward-icon class="nextIcon" />
-            </div>
-        </div>
+    <div class="tracks">
+        <md-card class="track" md-with-hover>
+            <md-ripple>
+                <md-card-media-cover>
+                    <md-card-media md-ratio="1:1">
+                        <img :src="this.prevUrl">
+                    </md-card-media>
+                </md-card-media-cover>
+                <md-icon class="md-size-5x track-icon left">skip_previous</md-icon>
+            </md-ripple>
+        </md-card>
+        <md-card class="track current" md-with-hover>
+            <md-ripple>
+                <md-card-media-cover>
+                    <md-card-media md-ratio="1:1">
+                        <img :src="this.coverUrl">
+                    </md-card-media>
+
+                    <md-card-area>
+                        <md-card-header>
+                            <span class="md-title">{{ this.coverTitle }}</span>
+                            <span class="md-subhead">{{ this.coverArt }}</span>
+                        </md-card-header>
+                    </md-card-area>
+                </md-card-media-cover>
+                <md-icon class="md-size-5x track-icon">play_arrow</md-icon>
+            </md-ripple>
+        </md-card>
+        <md-card class="track" md-with-hover>
+            <md-ripple>
+                <md-card-media-cover>
+                    <md-card-media md-ratio="1:1">
+                        <img :src="this.nextUrl">
+                    </md-card-media>
+                </md-card-media-cover>
+                <md-icon class="md-size-5x track-icon right">skip_next</md-icon>
+            </md-ripple>
+        </md-card>
     </div>
 </template>
 
@@ -39,149 +58,50 @@ export default {
         SkipForwardIcon
     }
 }
-
-function pause() {
-    document.getElementById('pause').style.opacity = 0;
-}
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
-.leftp {
-    position: absolute;
-    top: 50%;
-    left: 25%;
-    transform: translateX(-25%) translateY(-50%);
-    perspective: 1000px;
-}
-.rightp {
-    position: absolute;
-    top: 50%;
-    left: 75%;
-    transform: translateX(-75%) translateY(-50%);
-    perspective: 1000px;
-}
-.wrapper {
-    display: block;
-    width: 1000px;
-    height: 300px;
-}
-.prevTrack {
-    width: 250px;
-    height: 250px;
-    top: 50%;
-    left: 25%;
-    transform: translateX(-25%) translateY(-50%) rotateY(-40deg);
-    border-radius: 8px;
-    position: absolute;
-}
 .track {
+    height: 250px;
     width: 250px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.current {
     height: 400px;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    border-radius: 8px;
-    position: absolute;
+    width: 400px;
+    margin-left: -100px;
+    margin-right: -100px;
+    z-index: 1000;
 }
-.nextTrack {
-    width: 250px;
-    height: 250px;
-    top: 50%;
-    left: 75%;
-    transform: translateX(-75%) translateY(-50%) rotateY(40deg);
-    border-radius: 8px;
-    position: absolute;
+
+.current img {
+    transition: filter 0.2s;
 }
-.prev {
-    width: 225px;
-    height: 225px;
+
+.track-icon {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
-    border-radius: 8px;
-}
-.cover {
-    width: 250px;
-    height: 250px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    border-radius: 8px;
-}
-.next {
-    width: 225px;
-    height: 225px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    border-radius: 8px;
-}
-.prevIcon {
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%) rotate(180deg);
-    color: white;
     opacity: 0;
-    transition: 0.5s ease;
+    transition: opacity 0.2s;
 }
-.pause {
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    color: white;
-    opacity: 0;
-    transition: 0.5s ease;
+
+.left {
+    left: 30%;
 }
-.nextIcon {
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    color: white;
-    opacity: 0;
-    transition: 0.5s ease;
+
+.right {
+    left: 70%;
 }
-.title {
-    width: auto;
-    height: auto;
-    position: absolute;
-    top: 88%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-88%);
-    text-align: center;
-    font-family: 'Open Sans', sans-serif;
-    color: white;
-}
-.artist {
-    width: auto;
-    height: auto;
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-100%);
-    text-align: center;
-    font-family: 'Open Sans', sans-serif;
-    color: white;
-}
-.track:hover .pause {
+
+.track:hover .track-icon {
     opacity: 1;
 }
-.prevTrack:hover .prevIcon {
-    opacity: 1;
-}
-.nextTrack:hover .nextIcon {
-    opacity: 1;
+
+.track:hover img {
+    filter: brightness(80%);
 }
 </style>

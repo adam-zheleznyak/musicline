@@ -1,6 +1,6 @@
 <template>
     <div class="dashboard">
-        Dashboard
+        <div><img src="../assets/logo.svg" class="logo"></div>
         <Timeline />
         <Track
           prevUrl="https://images.rapgenius.com/dc547861a593b54a64ea80a468661ade.1000x1000x1.png"
@@ -23,3 +23,16 @@ export default {
     }
 }
 </script>
+
+<style>
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px;
+}
+
+.dashboard > div {
+    margin: 25px;
+}
+</style>

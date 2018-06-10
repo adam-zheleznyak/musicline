@@ -19,7 +19,7 @@ export default new Vuex.Store({
             if (state.schedule[index][1] - 15 > 0) {
                 Vue.set(state.schedule[index], 1, state.schedule[index][1] - 15)
             } else {
-                state.schedule.splice(index, 1)
+                Vue.set(state.schedule[index], 1, 0)
             }
         }
     },
