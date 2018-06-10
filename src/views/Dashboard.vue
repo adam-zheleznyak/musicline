@@ -1,5 +1,6 @@
 <template>
     <div class="dashboard">
+        <PlaylistDropdown />
         <div><img src="../assets/logo.svg" class="logo"></div>
         <div class="selector-wrapper">
             <p class="less md-body-2">Less intense</p>
@@ -20,18 +21,23 @@
 import Timeline from '@/components/Timeline.vue'
 import Track from '@/components/Track.vue'
 import Selector from '@/components/Selector.vue'
+import PlaylistDropdown from '@/components/PlaylistDropdown.vue'
 
 export default {
     name: 'Dashboard',
     components: {
         Timeline,
         Track,
-        Selector
+        Selector,
+        PlaylistDropdown
     },
     async mounted () {
         const me = await this.spotify.getMe()
         console.log(me)
         this.$store.commit('set_user', me.body)
+        const playlists = await this.spotify.getUserPlaylists(me.body.id)
+        console.log(playlists)
+        this.$store.commit('set_playlists', playlists.body)
     }
 }
 </script>
@@ -41,11 +47,19 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 50px;
 }
 
 .dashboard > div {
     margin: 25px;
+}
+
+.playlist-dropdown {
+    position: absolute;
+    left: 20px;
+}
+
+.md-button-content {
+    font-size: 20px;
 }
 
 .selector {

@@ -10,7 +10,8 @@ export default new Vuex.Store({
             [5, 15],
             [3, 30]
         ],
-        user: null
+        user: null,
+        playlists: null
     },
     mutations: {
         inc_time (state, index) {
@@ -32,9 +33,9 @@ export default new Vuex.Store({
         },
         set_user (state, user) {
             state.user = user
+        },
+        set_playlists (state, payload) {
+            state.playlists = payload
         }
-    },
-    actions: {
-
     }
 })
