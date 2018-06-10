@@ -2,7 +2,9 @@
     <div class="dashboard">
         <div><img src="../assets/logo.svg" class="logo"></div>
         <div class="selector-wrapper">
+            <p class="less md-body-2">Less intense</p>
             <Selector v-for="num in [1,2,3,4,5]" :num="num" :key="`${num}`"/>
+            <p class="more md-body-2">More intense</p>
         </div>
         <Timeline />
         <Track
@@ -44,6 +46,21 @@ export default {
 .selector {
     margin-left: 15px !important;
     margin-right: 15px !important;
+}
+
+.selector-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.less {
+    color: #4F3FE4;
+    padding-right: 20px;
+}
+
+.more {
+    color: #F0403E;
+    padding-left: 20px;
 }
 
 .intense-1 {
