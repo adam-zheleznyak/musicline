@@ -6,12 +6,17 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         schedule: [
-            [1, 15],
+            [4, 15],
             [5, 15],
             [3, 30]
         ],
-        user: null,
-        playlists: null
+        playing: 0,
+        user: {},
+        playlists: { items: [] },
+        tracks: [[], [], [], [], []]
+    },
+    getters: {
+        int: state => state.schedule[0][0] - 1
     },
     mutations: {
         inc_time (state, index) {
@@ -36,6 +41,32 @@ export default new Vuex.Store({
         },
         set_playlists (state, payload) {
             state.playlists = payload
+        },
+        reset_tracks (state) {
+            state.tracks = [[], [], [], [], []]
+        },
+        add_track (state, { energy, track }) {
+            state.tracks[energy].push(track)
+        },
+        next (state) {
+            state.playing ++
+        },
+        previous (state) {
+            state.playing --
+        }
+    },
+    actions: {
+        async order_tracks ({ commit, dispatch }, { spotify, payload }) {
+            commit('reset_tracks')
+            const tracks = payload.items.map((elem) => elem.track.id)
+            const featuresr = await spotify.getAudioFeaturesForTracks(tracks)
+            const features = featuresr.body.audio_features
+            for (const [ index, value ] of payload.items.entries()) {
+                commit('add_track', {
+                    energy: Math.floor(features[index].energy * 5),
+                    track: value.track
+                })
+            }
         }
     }
 })

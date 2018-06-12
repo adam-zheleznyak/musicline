@@ -6,10 +6,10 @@ import store from './store'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default-dark.css'
-import Spotify from 'spotify-web-api-node'
+import SpotifyApi from 'spotify-web-api-node'
 import VueSpotify from 'vue-spotify'
 
-Vue.use(VueSpotify, new Spotify({
+Vue.use(VueSpotify, new SpotifyApi({
     redirectUri: "http://206.189.223.220:8080/callback",
     clientId: "b82cbfef542541bfb57f2e9077b09176"
 }))

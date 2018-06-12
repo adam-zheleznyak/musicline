@@ -30,8 +30,10 @@ export default {
         }
     },
     methods: {
-        select (index) {
+        async select (index) {
             this.selected = index
+            const tracks = await this.spotify.getPlaylistTracks(this.$store.state.user.id, this.playlists.items[this.selected].id)
+            this.$store.dispatch('order_tracks', { spotify: this.spotify, payload: tracks.body })
         }
     }
 }

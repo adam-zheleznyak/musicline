@@ -17,8 +17,11 @@ export default {
             const scopes = [
                 "playlist-read-private",
                 "user-modify-playback-state",
+                "user-read-playback-state",
                 "user-library-read",
                 "user-read-private",
+                "user-read-birthdate",
+                "user-read-email",
                 "streaming"
             ]
             window.location.href = this.spotify.createAuthorizeURL(scopes)

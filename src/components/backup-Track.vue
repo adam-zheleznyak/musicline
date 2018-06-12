@@ -1,23 +1,23 @@
 <template>
     <div class="tracks">
         <div class="controls">
-            <md-button class="md-icon-button" @click="skipToPrevious()"><md-icon>skip_previous</md-icon></md-button>
-            <md-button class="md-icon-button" @click="play()" v-if="!started"><md-icon>play_arrow</md-icon></md-button>
-            <md-button class="md-icon-button" @click="resume()" v-if="started && !isPlaying"><md-icon>play_arrow</md-icon></md-button>
-            <md-button class="md-icon-button" @click="pause()" v-if="started && isPlaying"><md-icon>pause</md-icon></md-button>
-            <md-button class="md-icon-button" @click="skipToNext()"><md-icon>skip_next</md-icon></md-button>
+            <md-button class="md-icon-button"><md-icon>skip_previous</md-icon></md-button>
+            <md-button class="md-icon-button" @click="play()" v-if="init"><md-icon>play_arrow</md-icon></md-button>
+            <md-button class="md-icon-button" @click="resume()" v-if="!init && !playing"><md-icon>play_arrow</md-icon></md-button>
+            <md-button class="md-icon-button" @click="pause()" v-if="!init && playing"><md-icon>pause</md-icon></md-button>
+            <md-button class="md-icon-button"><md-icon>skip_next</md-icon></md-button>
         </div>
         <md-card class="track">
             <md-card-media-cover>
                 <md-card-media md-ratio="1:1">
-                    <img :src="prevCover">
+                    <img :src="this.prevCover">
                 </md-card-media>
             </md-card-media-cover>
         </md-card>
         <md-card class="track current">
             <md-card-media-cover>
                 <md-card-media md-ratio="1:1">
-                    <img :src="currentCover">
+                    <img :src="this.currentCover">
                 </md-card-media>
 
                 <md-card-area>
@@ -31,7 +31,7 @@
         <md-card class="track">
             <md-card-media-cover>
                 <md-card-media md-ratio="1:1">
-                    <img :src="nextCover">
+                    <img :src="this.nextCover">
                 </md-card-media>
             </md-card-media-cover>
         </md-card>
@@ -46,8 +46,8 @@ export default {
     name: 'Track',
     data () {
         return {
-            isPlaying: false,
-            started: false
+            init: true,
+            playing: false
         }
     },
     components: {
@@ -82,27 +82,21 @@ export default {
             console.log('hi')
             const devices = await this.spotify.getMyDevices()
             const id = devices.body.devices[0].id
-            await this.spotify.play({ device_id: id, uris: this.tracks[this.int].map((elem) => elem.uri) })
-            this.started = true
-            this.isPlaying = true
+            this.spotify.play({ device_id: id, uris: this.tracks[this.int].map((elem) => elem.uri) })
+            this.playing = true
+            this.init = false
         },
-        async skipToNext () {
-            await this.spotify.skipToNext()
-            this.$store.commit('next')
+        resume () {
+            this.spotify.play()
+            this.playing = true
         },
-        async skipToPrevious () {
-            await this.spotify.skipToPrevious()
-            this.$store.commit('previous')
-        },
-        async resume () {
-            await this.spotify.play()
-            this.isPlaying = true
-        },
-        async pause () {
-            await this.spotify.pause()
-            this.isPlaying = false
+        pause () {
+            this.spotify.pause()
+            this.playing = false
         }
     },
+    mounted () {
+    }
 }
 </script>
 
