@@ -7,7 +7,7 @@ import axios from 'axios'
 export default {
     name: 'Callback',
     async mounted () {
-        const response = await axios.get(`http://206.189.223.220:3000/grant/${this.$route.query.code}`)
+        const response = await axios.get(`http://192.168.1.71:8080//grant/${this.$route.query.code}`)
         const data = response.data.split('|||||')
 
         localStorage.setItem('access-token', data[0])

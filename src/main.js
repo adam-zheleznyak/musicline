@@ -10,7 +10,7 @@ import SpotifyApi from 'spotify-web-api-node'
 import VueSpotify from 'vue-spotify'
 
 Vue.use(VueSpotify, new SpotifyApi({
-    redirectUri: "http://206.189.223.220:8080/callback",
+    redirectUri: "http://192.168.1.71:8080/callback",
     clientId: "b82cbfef542541bfb57f2e9077b09176"
 }))
 Vue.use(VueMaterial)
